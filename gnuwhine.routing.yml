@@ -1,0 +1,8 @@
+
+gnuwhine.default_controller_fork:
+  path: '/gnuwhine'
+  defaults:
+    _controller: '\Drupal\gnuwhine\Controller\DefaultController::fork'
+    _title: 'fork'
+  requirements:
+    _permission: 'access content'
