@@ -17,9 +17,10 @@ class DefaultController extends ControllerBase {
    */
   public function fork() {
 
-    //$client = new \Github\Client();
-    //$repositories = $client->api('user')->repositories('ornicar');
+    $client = new \Github\Client();
+    $repositories = $client->api('user')->repositories('ornicar');
 
+    ksm($repositories);
 
     return [
       '#type' => 'markup',
