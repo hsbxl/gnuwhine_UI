@@ -12,6 +12,7 @@
   },
   "require": {
     "knplabs/github-api": "^2.7@dev",
-    "php-http/guzzle6-adapter": "^1.2@dev"
+    "php-http/guzzle6-adapter": "^1.2@dev",
+    "cpliakas/git-wrapper": "dev-master"
   }
 }

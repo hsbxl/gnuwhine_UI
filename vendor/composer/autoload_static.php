@@ -17,7 +17,9 @@ class ComposerStaticInitae0045b3d2b36ce713920e67c07865e4
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\OptionsResolver\\' => 34,
+            'Symfony\\Component\\EventDispatcher\\' => 34,
         ),
         'P' => 
         array (
@@ -40,6 +42,7 @@ class ComposerStaticInitae0045b3d2b36ce713920e67c07865e4
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
             'Github\\' => 7,
+            'GitWrapper\\' => 11,
         ),
         'C' => 
         array (
@@ -48,9 +51,17 @@ class ComposerStaticInitae0045b3d2b36ce713920e67c07865e4
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
         'Symfony\\Component\\OptionsResolver\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/options-resolver',
+        ),
+        'Symfony\\Component\\EventDispatcher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
         'Psr\\Http\\Message\\' => 
         array (
@@ -104,6 +115,10 @@ class ComposerStaticInitae0045b3d2b36ce713920e67c07865e4
         'Github\\' => 
         array (
             0 => __DIR__ . '/..' . '/knplabs/github-api/lib/Github',
+        ),
+        'GitWrapper\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cpliakas/git-wrapper/src',
         ),
         'Clue\\StreamFilter\\' => 
         array (
