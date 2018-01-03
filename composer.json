@@ -1,14 +1,14 @@
 {
-  "name": "hsbxl/gnuwhine",
+  "name": "hsbxl/gnuwhine_UI",
   "type": "drupal-custom-module",
   "description": "My Awesome Module",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://github.com/hsbxl/gnuwhine",
+  "homepage": "https://github.com/hsbxl/gnuwhine_UI",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://github.com/hsbxl/gnuwhine/issues",
-    "source": "https://github.com/hsbxl/gnuwhine"
+    "issues": "https://github.com/hsbxl/gnuwhine_UI/issues",
+    "source": "https://github.com/hsbxl/gnuwhine_UI"
   },
   "require": {
     "knplabs/github-api": "^2.7@dev",
