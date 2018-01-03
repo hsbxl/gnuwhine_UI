@@ -4,11 +4,11 @@
   "description": "My Awesome Module",
   "keywords": ["Drupal"],
   "license": "GPL-2.0+",
-  "homepage": "https://www.drupal.org/project/gnuwhine",
+  "homepage": "https://github.com/hsbxl/gnuwhine",
   "minimum-stability": "dev",
   "support": {
-    "issues": "https://www.drupal.org/project/issues/gnuwhine",
-    "source": "http://cgit.drupalcode.org/gnuwhine"
+    "issues": "https://github.com/hsbxl/gnuwhine/issues",
+    "source": "https://github.com/hsbxl/gnuwhine"
   },
   "require": {
     "knplabs/github-api": "^2.7@dev",
