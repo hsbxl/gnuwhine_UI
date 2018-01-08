@@ -3,13 +3,24 @@
 namespace Drupal\gnuwhine_ui\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\gnuwhine_ui\GnuwhineService;
 use Gitonomy\Git\Repository;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class DefaultController.
  */
 class DefaultController extends ControllerBase {
+
+  public static function create(ContainerInterface $container) {
+    $GnuwhineService = $container->get('gnuwhine_ui.gnuwhine');
+    return new static($GnuwhineService);
+  }
+
+  public function __construct(GnuwhineService $gnuwhineService) {
+    $this->gnuwhineservice = $gnuwhineService;
+  }
 
   /**
    * Fork.
@@ -18,63 +29,65 @@ class DefaultController extends ControllerBase {
    *   Return Hello string.
    */
   public function fork() {
-    $client = new \Github\Client();
-    $client->authenticate('6db80d761d77ed184fa1451f8018566a5ed84515', NULL, 'http_token');
-    $recipe_branches = [];
 
-    $username = 'hsbxl';
-    $repo = 'gnuwhine';
-
-    $branches = $client->api('repo')->branches($username, $repo);
-    foreach ($branches as $branch) {
-      $recipe_branches['hsbxl/gnuwhine']['branches'][] = $branch['name'];
-    }
-
-    $forks = $client->api('repo')->forks()->all($username, $repo);
-    foreach ($forks as $fork) {
-      $username = $fork['owner']['login'];
-      $repo = $fork['name'];
-
-      $branches = $client->api('repo')->branches($username, $repo);
-      foreach ($branches as $branch) {
-        $recipe_branches[$fork['full_name']]['branches'][] = $branch['name'];
-      }
-    }
-
-    foreach ($recipe_branches as $key => $recipe) {
-      if(!file_exists('/tmp/' . $key)) {
-        $url = 'https://github.com/' . $key . '.git';
-        \Gitonomy\Git\Admin::cloneTo('/tmp/' . $key, $url, FALSE);
-      }
-
-      foreach ($recipe['branches'] as $branch) {
-        $repository = new \Gitonomy\Git\Repository('/tmp/' . $key);
-        $repository->run('fetch');
-        $repository->run('checkout', [$branch]);
-
-        $recipe = Yaml::parse(file_get_contents('/tmp/' . $key . '/recipe.yaml'));
-
-        if(!empty($filtered_recipes)) {
-          $double = FALSE;
-          foreach ($filtered_recipes as $filtered_recipe) {
-            if($recipe === $filtered_recipe) {
-              $double = TRUE;
-            }
-          }
-          if(!$double) {$filtered_recipes[$key . '::' . $branch] = $recipe;}
-        }
-        else {
-          $filtered_recipes[$key . '::' . $branch] = $recipe;
-        }
-      }
-    }
-
-    ksm($filtered_recipes);
+    $recipes = $this->gnuwhineservice->getRecipes();
+    ksm($recipes);
 
     return [
       '#type' => 'markup',
       '#markup' => $this->t('Implement method: fork')
     ];
+  }
+
+  public function check_ingredients($recipes) {
+    $config = \Drupal::config('gnuwhine_ui.settings');
+    $ingredients = array_keys(Yaml::parse($config->get('ingredients')));
+
+    foreach ($recipes as $key => $recipe) {
+      if (!array_diff(array_keys($recipe['ingredients']), $ingredients)) {
+        $output[$key] = $recipe;
+      }
+    }
+
+    return $output;
+  }
+
+  public function check_doubles($recipes) {
+    foreach($recipes as $key => $recipe) {
+      if(!empty($filtered_recipes)) {
+        $double = FALSE;
+
+        foreach ($filtered_recipes as $filtered_recipe) {
+          if($recipe['ingredients'] === $filtered_recipe['ingredients']) {
+            $double = TRUE;
+          }
+        }
+        if(!$double) {
+          $filtered_recipes[$key] = $recipe;
+        }
+      }
+      else {
+        $filtered_recipes[$key] = $recipe;
+      }
+    }
+    return $filtered_recipes;
+  }
+
+  public function calculate_prices($recipes) {
+    $config = \Drupal::config('gnuwhine_ui.settings');
+    $ingredients = Yaml::parse($config->get('ingredients'));
+    $glass_size = $config->get('glass_size');
+
+    foreach ($recipes as $key => $recipe) {
+      foreach ($recipe['ingredients'] as $ingredient => $amount_percentage) {
+        $unitprice = $ingredients[$ingredient];
+        $amount_ml = ($glass_size / 100) * (int)$amount_percentage;
+        $recipes[$key]['price'] = round($recipes[$key]['price'] + ($unitprice * $amount_ml), 1);
+        $a = 0;
+      }
+    }
+
+    return $recipes;
   }
 
 }

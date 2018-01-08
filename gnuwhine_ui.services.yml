@@ -1,0 +1,5 @@
+services:
+  gnuwhine_ui.gnuwhine:
+    class: Drupal\gnuwhine_ui\GnuwhineService
+    arguments: ['@entity.query', '@entity.manager']
+

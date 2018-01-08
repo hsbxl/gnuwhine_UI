@@ -1,0 +1,6 @@
+gnuwhine_ui.admin_form:
+  title: 'Gnüwhine'
+  description: 'Gnüwhine settings'
+  parent: system.admin_config_services
+  route_name: gnuwhine_ui.admin_controller_form
+  weight: 100
