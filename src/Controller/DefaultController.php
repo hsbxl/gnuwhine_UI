@@ -33,6 +33,9 @@ class DefaultController extends ControllerBase {
     $recipes = $this->gnuwhineservice->getRecipes();
     ksm($recipes);
 
+    $poor = \Drupal\gnuwhine_ui\GnuwhineService::poorGlass();
+    ksm($poor);
+
     return [
       '#type' => 'markup',
       '#markup' => $this->t('Implement method: fork')

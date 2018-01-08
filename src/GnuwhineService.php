@@ -4,6 +4,7 @@ namespace Drupal\gnuwhine_ui;
 
 use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityManagerInterface;
+use Drupal\Core\Cache\Cache;
 use Symfony\Component\Yaml\Yaml;
 use Drupal\Core\Datetime\DrupalDateTime;
 
@@ -23,6 +24,10 @@ class GnuwhineService {
     $this->github_genesis_recipe = $this->config->get('github_recipe');
   }
 
+  public function poorGlass() {
+    return 'pooring glass';
+  }
+
   public function getIngredients() {
     return $this->ingredients;
   }
@@ -40,12 +45,55 @@ class GnuwhineService {
     $username = $genesis_path[0];
     $repo = $genesis_path[1];
 
-    $branches = $client->api('repo')->branches($username, $repo);
+
+    $branches_cid = 'gnuwhine:genesis:branches';
+    if($cache = \Drupal::cache('data')->get($branches_cid)) {
+      $branches = $cache->data;
+    }
+    else {
+      $branches = $client->api('repo')->branches($username, $repo);
+      \Drupal::cache('data')->set($branches_cid, $branches, Cache::PERMANENT, array(
+        'gnuwhine:branches',
+      ));
+    }
+
     foreach ($branches as $branch) {
       $recipe_branches[$path]['branches'][] = $branch['name'];
     }
 
-    $forks = $client->api('repo')->forks()->all($username, $repo);
+
+    $forks_cid = 'gnuwhine:forks';
+    if($cache = \Drupal::cache('data')->get($forks_cid)) {
+      $forks = $cache->data;
+    }
+    else {
+      $forks = $client->api('repo')->forks()->all($username, $repo);
+      \Drupal::cache('data')->set($forks_cid, $forks, Cache::PERMANENT, array(
+        'gnuwhine:forks',
+      ));
+    }
+
+
+    $recipe_branches_cid = 'gnuwhine:recipe_branches';
+    if($cache = \Drupal::cache('data')->get($recipe_branches_cid)) {
+      $recipe_branches = $cache->data;
+    }
+    else {
+      foreach ($forks as $fork) {
+        $username = $fork['owner']['login'];
+        $repo = $fork['name'];
+
+        $branches = $client->api('repo')->branches($username, $repo);
+        foreach ($branches as $branch) {
+          $recipe_branches[$fork['full_name']]['branches'][] = $branch['name'];
+        }
+      }
+      \Drupal::cache('data')->set($recipe_branches_cid, $recipe_branches, Cache::PERMANENT, array(
+        'gnuwhine:recipe_branches',
+      ));
+    }
+
+
     foreach ($forks as $fork) {
       $username = $fork['owner']['login'];
       $repo = $fork['name'];
