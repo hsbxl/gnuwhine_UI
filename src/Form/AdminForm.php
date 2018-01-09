@@ -53,6 +53,131 @@ class AdminForm extends ConfigFormBase {
       '#description' => $this->t('Show only recipes where we have all ingredients available.')
     );
 
+    $form['pumps'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->t('Pumps'),
+    );
+
+    $form['pumps']['p1'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 1'),
+    );
+    $form['pumps']['p1']['pump1_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 1: ingrediënt'),
+      '#default_value' => $config->get('pump1_name') ? : '',
+    );
+    $form['pumps']['p1']['pump1_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 1: timing: s/ml'),
+      '#default_value' => $config->get('pump1_timing') ? : '',
+    );
+
+    $form['pumps']['p2'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 2'),
+    );
+    $form['pumps']['p2']['pump2_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 2: ingrediënt'),
+      '#default_value' => $config->get('pump2_name') ? : '',
+    );
+    $form['pumps']['p2']['pump2_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 2: timing: s/ml'),
+      '#default_value' => $config->get('pump2_timing') ? : '',
+    );
+
+    $form['pumps']['p3'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 3'),
+    );
+    $form['pumps']['p3']['pump3_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 3: ingrediënt'),
+      '#default_value' => $config->get('pump3_name') ? : '',
+    );
+    $form['pumps']['p3']['pump3_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 3: timing: s/ml'),
+      '#default_value' => $config->get('pump3_timing') ? : '',
+    );
+
+    $form['pumps']['p4'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 4'),
+    );
+    $form['pumps']['p4']['pump4_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 4: ingrediënt'),
+      '#default_value' => $config->get('pump4_name') ? : '',
+    );
+    $form['pumps']['p4']['pump4_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 4: timing: s/ml'),
+      '#default_value' => $config->get('pump4_timing') ? : '',
+    );
+
+    $form['pumps']['p5'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 5'),
+    );
+    $form['pumps']['p5']['pump5_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 5: ingrediënt'),
+      '#default_value' => $config->get('pump5_name') ? : '',
+    );
+    $form['pumps']['p5']['pump5_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 5: timing: s/ml'),
+      '#default_value' => $config->get('pump5_timing') ? : '',
+    );
+
+    $form['pumps']['p6'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 6'),
+    );
+    $form['pumps']['p6']['pump6_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 6: ingrediënt'),
+      '#default_value' => $config->get('pump6_name') ? : '',
+    );
+    $form['pumps']['p6']['pump6_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 6: timing: s/ml'),
+      '#default_value' => $config->get('pump6_timing') ? : '',
+    );
+
+    $form['pumps']['p7'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 7'),
+    );
+    $form['pumps']['p7']['pump7_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 7: ingrediënt'),
+      '#default_value' => $config->get('pump7_name') ? : '',
+    );
+    $form['pumps']['p7']['pump7_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 7: timing: s/ml'),
+      '#default_value' => $config->get('pump7_timing') ? : '',
+    );
+
+    $form['pumps']['p8'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Pump 8'),
+    );
+    $form['pumps']['p8']['pump8_name'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('Pump 8: ingrediënt'),
+      '#default_value' => $config->get('pump8_name') ? : '',
+    );
+    $form['pumps']['p8']['pump8_timing'] = array(
+      '#type' => 'number',
+      '#title' => $this->t('Pump 8: timing: s/ml'),
+      '#default_value' => $config->get('pump8_timing') ? : '',
+    );
+
     $form['recipes'] = array(
       '#type' => 'fieldset',
       '#title' => $this->t('Recipes'),
@@ -96,6 +221,23 @@ class AdminForm extends ConfigFormBase {
     $this->config('gnuwhine_ui.settings')
       ->set('ingredients', $form_state->getValue('ingredients'))
       ->set('filter_recipes', $form_state->getValue('filter_recipes'))
+      ->set('pump1_name', $form_state->getValue('pump1_name'))
+      ->set('pump1_timing', $form_state->getValue('pump1_timing'))
+      ->set('pump2_name', $form_state->getValue('pump2_name'))
+      ->set('pump2_timing', $form_state->getValue('pump2_timing'))
+      ->set('pump3_name', $form_state->getValue('pump3_name'))
+      ->set('pump3_timing', $form_state->getValue('pump3_timing'))
+      ->set('pump4_name', $form_state->getValue('pump4_name'))
+      ->set('pump4_timing', $form_state->getValue('pump4_timing'))
+      ->set('pump5_name', $form_state->getValue('pump5_name'))
+      ->set('pump5_timing', $form_state->getValue('pump5_timing'))
+      ->set('pump6_name', $form_state->getValue('pump6_name'))
+      ->set('pump6_timing', $form_state->getValue('pump6_timing'))
+      ->set('pump7_name', $form_state->getValue('pump7_name'))
+      ->set('pump7_timing', $form_state->getValue('pump7_timing'))
+      ->set('pump8_name', $form_state->getValue('pump8_name'))
+      ->set('pump8_timing', $form_state->getValue('pump8_timing'))
+      ->set('github_recipe', $form_state->getValue('github_recipe'))
       ->set('glass_size', $form_state->getValue('glass_size'))
       ->set('github_token', $form_state->getValue('github_token'))
       ->set('github_recipe', $form_state->getValue('github_recipe'))
