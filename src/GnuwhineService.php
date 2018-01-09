@@ -6,7 +6,6 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Cache\Cache;
 use Symfony\Component\Yaml\Yaml;
-use Drupal\Core\Datetime\DrupalDateTime;
 
 /**
  * Class GnuwhineService.
@@ -14,7 +13,6 @@ use Drupal\Core\Datetime\DrupalDateTime;
 class GnuwhineService {
 
   public function __construct(QueryFactory $entity_query, EntityManagerInterface $entityManager) {
-
     $this->entity_query = $entity_query;
     $this->entityManager = $entityManager;
     $this->config = \Drupal::config('gnuwhine_ui.settings');
@@ -24,8 +22,8 @@ class GnuwhineService {
     $this->github_genesis_recipe = $this->config->get('github_recipe');
   }
 
-  public function poorGlass() {
-    return 'pooring glass';
+  public function pourGlass() {
+    return 'pouring glass';
   }
 
   public function getIngredients() {
@@ -33,7 +31,6 @@ class GnuwhineService {
   }
 
   public function getRecipes() {
-
     $recipe_branches = [];
 
     $client = new \Github\Client();
@@ -169,7 +166,6 @@ class GnuwhineService {
         $unitprice = $ingredients[$ingredient];
         $amount_ml = ($glass_size / 100) * (int)$amount_percentage;
         $recipes[$key]['price'] = round($recipes[$key]['price'] + ($unitprice * $amount_ml), 1);
-        $a = 0;
       }
     }
 
