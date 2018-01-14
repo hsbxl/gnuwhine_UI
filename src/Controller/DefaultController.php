@@ -26,20 +26,11 @@ class DefaultController extends ControllerBase {
    * Fork.
    *
    * @return string
-   *   Return Hello string.
+   *   Return menu.
    */
   public function fork() {
-
     $recipes = $this->gnuwhineservice->getRecipes();
-    ksm($recipes);
-
-    $pour = \Drupal\gnuwhine_ui\GnuwhineService::pourGlass();
-    ksm($pour);
-
-    return [
-      '#type' => 'markup',
-      '#markup' => $this->t('Implement method: fork')
-    ];
+    $form = \Drupal::formBuilder()->getForm('Drupal\gnuwhine_ui\Form\RecipeForm');
+    return $form;
   }
-
 }
