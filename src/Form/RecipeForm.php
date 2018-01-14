@@ -96,8 +96,14 @@ class RecipeForm extends FormBase {
       return;
     }
 
-    $recipes = $this->gnuwhine->getRecipes();
     $selected = $form_state->getValue('table');
+
+    if(empty($selected)) {
+      drupal_set_message($this->t('What ya like? Please select a cocktail.'), 'warning');
+      return;
+    }
+
+    $recipes = $this->gnuwhine->getRecipes();
 
     drupal_set_message($this->t('Making your cocktail: @cocktail', ['@cocktail' => $this->gnuwhine->filtername($selected)]));
     drupal_set_message($this->t('Price to pay: €@price', ['@price' => $recipes[$selected]['price']]));
