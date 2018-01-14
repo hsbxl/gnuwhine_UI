@@ -3,7 +3,7 @@ gnuwhine.default_controller_fork:
   path: '/gnuwhine'
   defaults:
     _controller: '\Drupal\gnuwhine_ui\Controller\DefaultController::fork'
-    _title: 'Cocktails'
+    _title: 'Gnüwhine bot'
   requirements:
     _permission: 'access content'
 

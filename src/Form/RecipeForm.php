@@ -73,12 +73,19 @@ class RecipeForm extends FormBase {
       '#multiple' => FALSE,
       '#options' => $options,
       '#empty' => $this->t('No recipes found'),
+      '#attributes' => [
+        'class' => [
+          'gnuwine_ui_cocktails'
+        ],
+      ],
     );
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Pour glass'),
     ];
+
+    $form['#attached']['library'][] = 'gnuwhine_ui/cocktails';
 
     return $form;
   }

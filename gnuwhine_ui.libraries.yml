@@ -1,0 +1,9 @@
+cocktails:
+  version: VERSION
+  js:
+    js/gnuwhine_ui.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery
+    - core/drupal.date
