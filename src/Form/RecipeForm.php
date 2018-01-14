@@ -91,6 +91,11 @@ class RecipeForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    if(!\Drupal::currentUser()->hasPermission('pour cocktail')) {
+      drupal_set_message($this->t('Ah ah ah, you didn\'t say the magic word!'), 'error');
+      return;
+    }
+
     $recipes = $this->gnuwhine->getRecipes();
     $selected = $form_state->getValue('table');
 
