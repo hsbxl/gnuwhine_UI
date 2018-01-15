@@ -111,8 +111,6 @@ class RecipeForm extends FormBase {
 
     $this->gnuwhine->pour($recipes[$selected]);
 
-    $this->gnuwhine->resetStats();
-
     exec("python /usr/bin/Gnuwhine-Command/gpio.py --p1=1");
   }
 }

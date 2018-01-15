@@ -4,11 +4,26 @@ namespace Drupal\gnuwhine_ui\form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\gnuwhine_ui\GnuwhineService;
 
 /**
  * Configure example settings for this site.
  */
 class AdminForm extends ConfigFormBase {
+
+  public function __construct(GnuwhineService $gnuwhineService) {
+    $this->gnuwhine = $gnuwhineService;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('gnuwhine_ui.gnuwhine')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -84,6 +99,11 @@ class AdminForm extends ConfigFormBase {
       '#description' => $this->t('The github URI of the genesis recipe.')
     );
 
+    $form['actions']['clearstats'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Clear stats'),
+    );
+
 
     return parent::buildForm($form, $form_state);
   }
@@ -92,6 +112,12 @@ class AdminForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
+    $triggering_element = $form_state->getTriggeringElement();
+    if($triggering_element['#id'] == 'edit-clearstats') {
+      $this->gnuwhine->resetStats();
+      return;
+    }
 
     $this->config('gnuwhine_ui.settings')
       ->set('ingredients', $form_state->getValue('ingredients'))
