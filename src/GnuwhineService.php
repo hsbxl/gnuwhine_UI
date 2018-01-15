@@ -16,6 +16,7 @@ class GnuwhineService {
     $this->entity_query = $entity_query;
     $this->entityManager = $entityManager;
     $this->config = \Drupal::config('gnuwhine_ui.settings');
+    $this->stats = \Drupal::config('gnuwhine_ui.stats');
     $this->ingredients = Yaml::parse($this->config->get('ingredients'));
     $this->glasssize = $this->config->get('glass_size');
     $this->github_token = $this->config->get('github_token') ? : '';
@@ -32,10 +33,15 @@ class GnuwhineService {
   }
 
   public function updateStats($recipe) {
-    $pours = $this->config->get($recipe['name']) + 1;
-    \Drupal::configFactory()->getEditable('gnuwhine_ui.settings')
+    $pours = $this->stats->get($recipe['name']) + 1;
+    \Drupal::configFactory()->getEditable('gnuwhine_ui.stats')
       ->set($recipe['name'], $pours)
       ->save();
+  }
+
+  public function resetStats() {
+    \Drupal::configFactory()->getEditable('gnuwhine_ui.stats')
+      ->delete();
   }
 
   public function calculate_timing(&$recipe = []) {

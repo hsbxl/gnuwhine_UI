@@ -20,6 +20,7 @@ class RecipeForm extends FormBase {
     $this->account = $account;
     $this->gnuwhine = $gnuwhineService;
     $this->config = \Drupal::config('gnuwhine_ui.settings');
+    $this->stats = \Drupal::config('gnuwhine_ui.stats');
   }
 
   /**
@@ -60,7 +61,7 @@ class RecipeForm extends FormBase {
           '#markup' => '€' . $recipe['price'],
         ],
         'pours' => [
-          '#markup' => $this->config->get($recipe['name']),
+          '#markup' => $this->stats->get($recipe['name']),
         ],
       ];
 
@@ -108,7 +109,9 @@ class RecipeForm extends FormBase {
     drupal_set_message($this->t('Making you a \'@cocktail\'', ['@cocktail' => $this->gnuwhine->filtername($selected)]));
     drupal_set_message($this->t('Please pay €@price.', ['@price' => $recipes[$selected]['price']]));
 
-    $result = $this->gnuwhine->pour($recipes[$selected]);
+    $this->gnuwhine->pour($recipes[$selected]);
+
+    $this->gnuwhine->resetStats();
 
     exec("python /usr/bin/Gnuwhine-Command/gpio.py --p1=1");
   }
