@@ -32,10 +32,10 @@ class GnuwhineService {
   }
 
   public function updateStats($recipe) {
-
     $pours = $this->config->get($recipe['name']) + 1;
     \Drupal::configFactory()->getEditable('gnuwhine_ui.settings')
-      ->set($recipe['name'], $pours);
+      ->set($recipe['name'], $pours)
+      ->save();
   }
 
   public function calculate_timing(&$recipe = []) {
