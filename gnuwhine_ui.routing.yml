@@ -10,7 +10,7 @@ gnuwhine.default_controller_fork:
 gnuwhine_ui.admin_controller_form:
   path: '/admin/config/user-interface/gnuwhine'
   defaults:
-    _form: '\Drupal\gnuwhine_ui\form\AdminForm'
+    _form: '\Drupal\gnuwhine_ui\Form\AdminForm'
     _title: 'Gnüwhine settings'
   requirements:
     _permission: 'access content'
