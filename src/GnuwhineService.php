@@ -32,6 +32,11 @@ class GnuwhineService {
     $this->updateStats($recipe);
   }
 
+  public function gnuwhinexec($recipe) {
+    $script_path = $this->config->get('script_path');
+    exec("python " . script_path . " --p1=1");
+  }
+
   public function updateStats($recipe) {
     $pours = $this->stats->get($recipe['name']) + 1;
     \Drupal::configFactory()->getEditable('gnuwhine_ui.stats')

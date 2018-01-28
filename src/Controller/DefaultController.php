@@ -4,8 +4,6 @@ namespace Drupal\gnuwhine_ui\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\gnuwhine_ui\GnuwhineService;
-use Gitonomy\Git\Repository;
-use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

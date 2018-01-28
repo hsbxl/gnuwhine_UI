@@ -49,7 +49,7 @@ class AdminForm extends ConfigFormBase {
     $config = $this->config('gnuwhine_ui.settings');
 
     $form['ingredients'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Ingredients'),
     );
 
@@ -69,7 +69,7 @@ class AdminForm extends ConfigFormBase {
     );
 
     $form['recipes'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Recipes'),
     );
 
@@ -80,8 +80,35 @@ class AdminForm extends ConfigFormBase {
       '#description' => $this->t('What is the size of one full glass? In milliliter.')
     );
 
+    $form['gpio'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('GPIO'),
+    );
+
+    $form['gpio']['script_path'] = array(
+      '#type' => 'textfield',
+      '#title' => $this->t('GPIO script path'),
+      '#default_value' => $config->get('script_path') ? : '',
+      '#description' => $this->t('The full path to the GPIO script.')
+    );
+
+    $form['stats'] = array(
+      '#type' => 'details',
+      '#title' => $this->t('Stats & cache'),
+    );
+
+    $form['stats']['clearstats'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Clear gnüwhine stats'),
+    );
+
+    $form['stats']['clearrecipes'] = array(
+      '#type' => 'submit',
+      '#value' => $this->t('Clear cached recipes'),
+    );
+
     $form['github'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'details',
       '#title' => $this->t('Github'),
     );
 
@@ -98,12 +125,6 @@ class AdminForm extends ConfigFormBase {
       '#default_value' => $config->get('github_recipe') ? : 'https://github.com/hsbxl/gnuwhine',
       '#description' => $this->t('The github URI of the genesis recipe.')
     );
-
-    $form['actions']['clearstats'] = array(
-      '#type' => 'submit',
-      '#value' => $this->t('Clear stats'),
-    );
-
 
     return parent::buildForm($form, $form_state);
   }
@@ -122,24 +143,9 @@ class AdminForm extends ConfigFormBase {
     $this->config('gnuwhine_ui.settings')
       ->set('ingredients', $form_state->getValue('ingredients'))
       ->set('filter_recipes', $form_state->getValue('filter_recipes'))
-      ->set('pump1_name', $form_state->getValue('pump1_name'))
-      ->set('pump1_timing', $form_state->getValue('pump1_timing'))
-      ->set('pump2_name', $form_state->getValue('pump2_name'))
-      ->set('pump2_timing', $form_state->getValue('pump2_timing'))
-      ->set('pump3_name', $form_state->getValue('pump3_name'))
-      ->set('pump3_timing', $form_state->getValue('pump3_timing'))
-      ->set('pump4_name', $form_state->getValue('pump4_name'))
-      ->set('pump4_timing', $form_state->getValue('pump4_timing'))
-      ->set('pump5_name', $form_state->getValue('pump5_name'))
-      ->set('pump5_timing', $form_state->getValue('pump5_timing'))
-      ->set('pump6_name', $form_state->getValue('pump6_name'))
-      ->set('pump6_timing', $form_state->getValue('pump6_timing'))
-      ->set('pump7_name', $form_state->getValue('pump7_name'))
-      ->set('pump7_timing', $form_state->getValue('pump7_timing'))
-      ->set('pump8_name', $form_state->getValue('pump8_name'))
-      ->set('pump8_timing', $form_state->getValue('pump8_timing'))
       ->set('github_recipe', $form_state->getValue('github_recipe'))
       ->set('glass_size', $form_state->getValue('glass_size'))
+      ->set('script_path', $form_state->getValue('script_path'))
       ->set('github_token', $form_state->getValue('github_token'))
       ->set('github_recipe', $form_state->getValue('github_recipe'))
       ->save();
