@@ -46,7 +46,7 @@ class GnuwhineService {
     $args = implode(' ', $pumpargs);
 
     if(count($pumpargs)) {
-      $exec = exec("python " . $script_path . " " . $args);
+      $exec = exec("/usr/bin/python " . $script_path . " " . $args);
     }
   }
 
