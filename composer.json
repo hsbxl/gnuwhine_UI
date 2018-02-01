@@ -3,7 +3,7 @@
   "type": "drupal-custom-module",
   "description": "My Awesome Module",
   "keywords": ["Drupal"],
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "homepage": "https://github.com/hsbxl/gnuwhine_ui",
   "minimum-stability": "dev",
   "support": {
