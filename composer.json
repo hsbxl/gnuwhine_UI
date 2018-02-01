@@ -11,8 +11,8 @@
     "source": "https://github.com/hsbxl/gnuwhine_ui"
   },
   "require": {
-    "gitonomy/gitlib": "^1.0"
+    "gitonomy/gitlib": "^1.0",
     "knplabs/github-api": "^2.7@dev",
-    "php-http/guzzle6-adapter": "^1.2@dev",
+    "php-http/guzzle6-adapter": "^1.2@dev"
   }
 }

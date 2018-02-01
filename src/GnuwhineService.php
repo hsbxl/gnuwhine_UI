@@ -6,6 +6,7 @@ use Drupal\Core\Entity\Query\QueryFactory;
 use Drupal\Core\Entity\EntityManagerInterface;
 use Drupal\Core\Cache\Cache;
 use Symfony\Component\Yaml\Yaml;
+use Gitonomy\Git\Admin;
 
 /**
  * Class GnuwhineService.
