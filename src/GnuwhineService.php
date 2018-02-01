@@ -31,11 +31,23 @@ class GnuwhineService {
 
     // Update stats.
     $this->updateStats($recipe);
+
+    // Call the python script.
+    $this->gnuwhinexec($recipe);
   }
 
   public function gnuwhinexec($recipe) {
+    $args = '';
     $script_path = $this->config->get('script_path');
-    exec("python " . script_path . " --p1=1");
+
+    foreach($recipe['pumps'] as $key => $timing) {
+      $pumpargs[] = '--' . $key . '=' . $timing;
+    }
+    $args = implode(' ', $pumpargs);
+
+    if(count($pumpargs)) {
+      $exec = exec("python " . $script_path . " " . $args);
+    }
   }
 
   public function updateStats($recipe) {
