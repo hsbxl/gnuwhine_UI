@@ -228,6 +228,7 @@ class GnuwhineService {
     $glass_size = $this->glasssize;
 
     foreach ($recipes as $key => $recipe) {
+      $recipes[$key]['price'] = 0;
       foreach ($recipe['ingredients'] as $ingredient => $amount_percentage) {
         $unitprice = $ingredients[$ingredient]['price'];
         $amount_ml = ($glass_size / 100) * (int)$amount_percentage;
