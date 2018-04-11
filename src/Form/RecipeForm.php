@@ -110,7 +110,5 @@ class RecipeForm extends FormBase {
     drupal_set_message($this->t('Please pay €@price.', ['@price' => $recipes[$selected]['price']]));
 
     $this->gnuwhine->pour($recipes[$selected]);
-
-    exec("python /usr/bin/Gnuwhine-Command/gpio.py --p1=1");
   }
 }

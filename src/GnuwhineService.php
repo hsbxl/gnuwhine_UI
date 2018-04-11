@@ -46,7 +46,9 @@ class GnuwhineService {
     $args = implode(' ', $pumpargs);
 
     if(count($pumpargs)) {
-      $exec = exec("/usr/bin/python " . $script_path . " " . $args);
+      exec("pkill mplayer");
+      exec("sudo mplayer /var/www/drupal/troll.mp3 2>/dev/null >/dev/null &");
+      exec("sudo " . $script_path . " " . $args . " > /dev/null 2>&1 &");
     }
   }
 
